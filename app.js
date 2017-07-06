@@ -17,6 +17,9 @@ var connector = new builder.ChatConnector({
 var bot = new builder.UniversalBot(connector, function (session) {
     session.send("Vishal said: %s", session.message.text);
 });
+
+
+server.get(/.*/, restify.serveStatic({ 'directory': '.', 'default': 'index.html' }));
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
