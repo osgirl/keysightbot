@@ -15,7 +15,7 @@ var connector = new builder.ChatConnector({
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("You said: %s", session.message.text);
+    session.send("Vishal said: %s", session.message.text);
 });
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
