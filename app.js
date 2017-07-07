@@ -1,5 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var builder_cognitiveservices = require("botbuilder-cognitiveservices");
 
 // Setup Restify Server
 var server = restify.createServer();
@@ -14,14 +15,28 @@ var connector = new builder.ChatConnector({
 });
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
-var bot = new builder.UniversalBot(connector, function (session) {
-    session.send("Vishal said: %s", session.message.text);
-});
+var bot = new builder.UniversalBot(connector);
+// , function (session) {
+//     session.send("Vishal said: %s", session.message.text);
+// });
 
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
-  
+
+//qnamaker
+var recognizer = new builder_cognitiveservices.QnAMakerRecognizer({
+	knowledgeBaseId: '85120651-413d-420c-86ce-9dcbfa31524f', 
+	subscriptionKey: 'aeb10de84b154c1895080e099add9149'});
+	
+var basicQnAMakerDialog = new builder_cognitiveservices.QnAMakerDialog({
+	recognizers: [recognizer],
+	defaultMessage: 'No match! Try changing the query terms!',
+	qnaThreshold: 0.3
+});
+
+bot.dialog('/', basicQnAMakerDialog);
+
 server.get('/', restify.plugins.serveStatic({  
  directory: __dirname,  
  default: '/index.html'  
