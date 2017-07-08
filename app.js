@@ -32,7 +32,7 @@ var recognizer = new builder_cognitiveservices.QnAMakerRecognizer({
 var basicQnAMakerDialog = new builder_cognitiveservices.QnAMakerDialog({
 	recognizers: [recognizer],
 	defaultMessage: 'No match! Try changing the query terms!',
-	qnaThreshold: 0.3
+	qnaThreshold: 0.1
 });
 
 bot.dialog('/', basicQnAMakerDialog);
