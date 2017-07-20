@@ -1,3 +1,3 @@
 ##skype chat
 
-<img src = "/images/chat.png" width="300" />
+<img src = "/images/chat.png" />
